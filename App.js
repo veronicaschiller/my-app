@@ -21,10 +21,15 @@ export default function App() {
   setProduct("")
   }
   const itemLista = ({ item }) =>{
-    <Item id={item.id} nome={item.nome} />
+    <Item id={item.id} nome={item.nome} onDeleteproduct={rmProduct} />
+
     // return(
     //   <Text>{item.id} - {item.nome}</Text>
     // )
+  }
+  const rmProduct = (id) => {
+    console.log(`removido: ${id}` );
+    setLista(lista.filter((prod)=> prod.id != id)) ;
   }
   return (
     <View style={styles.container}>
