@@ -1,59 +1,65 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ScrollView, FlatList } from 'react-native';
-import Constants from 'expo-constants';
-import { useState } from 'react';
-import Item from '/item.js'
-
+import { StatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+} from "react-native";
+import Constants from "expo-constants";
+import { useState } from "react";
+import Item from "/item.js";
 
 export default function App() {
-  const mercado = require("./assets/8-dicas-úteis.jpg")
-  const [Product, setProduct] = useState("")
-  const [lista, setLista] = useState([])
+  const mercado = require("./assets/8-dicas-úteis.jpg");
+  const [Product, setProduct] = useState("");
+  const [lista, setLista] = useState([]);
 
   const addNewProduct = () => {
     const novo = {
       id: new Date().getTime().toString(),
-      nome: Product ? Product : "Arroz"
-    } 
+      nome: Product ? Product : "Arroz",
+    };
     // faz uma nova atribuição a lista , com os elemento ja existentes (...lista)  e o nome
-    setLista([...lista, novo])
-  // lista de conteudos de produto (por consequencia, o campo )
-  setProduct("")
-  }
-  const itemLista = ({ item }) =>{
-    <Item id={item.id} nome={item.nome} onDeleteproduct={rmProduct} />
+    setLista([...lista, novo]);
+    // lista de conteudos de produto (por consequencia, o campo )
+    setProduct("");
+  };
+  const itemLista = ({ item }) => {
+    <Item id={item.id} nome={item.nome} onDeleteproduct={rmProduct} />;
 
     // return(
     //   <Text>{item.id} - {item.nome}</Text>
     // )
-  }
+  };
   const rmProduct = (id) => {
-    console.log(`removido: ${id}` );
-    setLista(lista.filter((prod)=> prod.id != id)) ;
-  }
+    console.log(`removido: ${id}`);
+    setLista(lista.filter((prod) => prod.id != id));
+  };
   return (
     <View style={styles.container}>
-      <Image source={mercado} style={styles.img}/>
+      <Image source={mercado} style={styles.img} />
       <Text>lista de compras</Text>
-     <view style={styles.novoProduto}>
-      <TextInput 
-      placeholder='informe o seu produto'
-      placeholderTextColor='#aaa'
-      style={styles.textInput}
-      onChangeText={(texto) => setProduct(texto)}/>
-      <TouchableOpacity  
-      style={styles.button}
-      onPress={addNewProduct}
-      >
-        <Text style={styles.textButton}>adicionar</Text>
-      </TouchableOpacity>
+      <view style={styles.novoProduto}>
+        <TextInput
+          placeholder="informe o seu produto"
+          placeholderTextColor="#aaa"
+          style={styles.textInput}
+          onChangeText={(texto) => setProduct(texto)}
+        />
+        <TouchableOpacity style={styles.button} onPress={addNewProduct}>
+          <Text style={styles.textButton}>adicionar</Text>
+        </TouchableOpacity>
       </view>
-     <FlatList data= {lista}
-     renderItem={itemLista}
-     keyExtractor={(prod) => prod.id}
-     />
+      <FlatList
+        data={lista}
+        renderItem={itemLista}
+        keyExtractor={(prod) => prod.id}
+      />
       <StatusBar style="auto" />
-
     </View>
   );
 }
@@ -61,45 +67,44 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Constants.StatusBarHeght
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingTop: Constants.StatusBarHeght,
   },
-  img:{
-    width:300,
+  img: {
+    width: 300,
     height: 150,
-    margin:15,
-    alignSelf:"center",
-    
+    margin: 15,
+    alignSelf: "center",
   },
-  textInput:{
+  textInput: {
     borderWidth: 1,
-    borderColor : '#ccc',
+    borderColor: "#ccc",
     width: "70%",
     padding: 10,
-    marginRight: 8
+    marginRight: 8,
   },
-  novoProduto:{
-    flexDirection:"row",
+  novoProduto: {
+    flexDirection: "row",
     justifyContent: "space-between",
-    paddingBottom:10,
-    borderBottomColor:"#ccc",
-    borderBottomWidth:1
+    paddingBottom: 10,
+    borderBottomColor: "#ccc",
+    borderBottomWidth: 1,
   },
-  button:{
-    width:100,
-    backgroundColor:"#00f",
+  button: {
+    width: 100,
+    backgroundColor: "#00f",
     alignItems: "center",
     padding: 5,
-    borderRadius:5
+    borderRadius: 5,
   },
-  textButton:{
-    color:"#fff",
-    fontWeight:18,
-    marginTop: 6
+  textButton: {
+    color: "#fff",
+    fontWeight: 18,
+    marginTop: 6,
   },
-  titulo:{
-    fontSize:22,
-  }
+  titulo: {
+    fontSize: 22,
+  },
 });
